@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Splitter</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            width: 300px;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        input {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+        input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        button {
+            background: #007BFF;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        #result.error {
+            color: #ff4d4d;
+        }
+        #result.success {
+            color: #4caf50;
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bill Splitter</h1>
+        <input type="number" step="0.01" id="total" placeholder="Total Amount">
+        <input type="number" id="people" placeholder="Number of People">
+        <button id="calculate">Calculate</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('calculate').addEventListener('click', function() {
+            const total = parseFloat(document.getElementById('total').value);
+            const people = parseInt(document.getElementById('people').value);
+            const resultDiv = document.getElementById('result');
+            if (isNaN(total) || isNaN(people) || people <= 0) {
+                resultDiv.innerText = 'Please enter valid numbers.';
+                resultDiv.className = 'error';
+                return;
+            }
+            const splitAmount = (total / people).toFixed(2);
+            resultDiv.innerText = `Each person should pay: $${splitAmount}`;
+            resultDiv.className = 'success';
+        });
+    </script>
+</body>
+</html>
